@@ -1,0 +1,99 @@
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: #333333;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .nav-items {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-items a {
+    color: #ffffff;
+    margin-right: 8px;
+    text-decoration: none;
+  }
+
+  .nav-items a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-bar-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background-color: #333333;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .nav-bar-bottom a {
+    color: #ffffff;
+    margin-right: 8px;
+    text-decoration: none;
+  }
+
+  .nav-bar-bottom a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-icons {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-icons a {
+    color: #ffffff;
+    margin-right: 8px;
+    text-decoration: none;
+  }
+
+  .nav-icons a:hover {
+    text-decoration: underline;
+  }
+
+  .card-container {
+    margin-top: 54px;
+  }
+
+.navbare {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .navbare a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .content-container {
+      height: calc(100vh - 50px); /* Subtract the navbar height */
+      overflow-y: auto;
+      padding-bottom: 50px; /* Add padding to prevent content from being hidden behind the navbar */
+    }
+
+    /* Adjust the styling of your main content as needed */
+    .content {
+      padding: 20px;
+}
+
