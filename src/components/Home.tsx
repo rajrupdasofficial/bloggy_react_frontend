@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './static/css/home.css';
-import NavBar from './NavBar';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./static/css/home.css";
+import NavBar from "./NavBar";
 
 
 
