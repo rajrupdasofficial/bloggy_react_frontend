@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./static/css/home.css";
 import NavBar from "./NavBar";
-
+import { apiUrl } from './globals/globalEnv';
 
 
 interface DataItem {
@@ -18,8 +18,12 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<DataItem[]>('http://localhost:8000/');
+         if (apiUrl) {
+        const response = await axios.get<DataItem[]>(apiUrl);
         setData(response.data);
+      } else {
+        console.error('REACT_APP_API_URL is not defined');
+      }
       } catch (err) {
         // Handle error
       }
@@ -48,7 +52,7 @@ const Home: React.FC = () => {
     let list: JSX.Element[] = [];
 
     data.forEach((item) => {
-    const imageUrl = `http://localhost:8000/${item.video_thumbnail}`;
+    const imageUrl = `${apiUrl}/${item.video_thumbnail}`;
       list.push(
         <a href="#" key={item.id}>
           <div className="card">
