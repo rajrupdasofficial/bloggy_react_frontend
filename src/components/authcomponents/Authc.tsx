@@ -6,6 +6,8 @@ import { apiUrl } from '../globals/globalEnv';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+//import Cookies from 'js-cookie';
+
 
 const Authc: React.FC = () => {
   const [signIn, setSignIn] = useState<boolean>(true);
@@ -77,10 +79,15 @@ const Authc: React.FC = () => {
       if (apiUrl) {
         const url = `${apiUrl}/users/login`;
         const response = await axios.post(url, signInFormData);
+        console.log(response);
+        // Set jwt auth token as a cookie
+        Cookies.set('jwtToken', response.data.token, { path: '/', sameSite: 'None', secure: true });
+
+        // Set jwt auth token as a cookie
+        //document.cookie = `jwtToken=${response.data.token}; path=/; SameSite=None; Secure`;
+
         toast.success("User Sign-in successful");
         toast.error("");
-        // Set jwt auth token as a cookie
-        document.cookie = `jwtToken=${response.data.token}; path=/; SameSite=None; Secure`;
 
         // Use the navigate function to navigate to the home page or another page
         navigate('/'); // Replace '/' with the desired URL
