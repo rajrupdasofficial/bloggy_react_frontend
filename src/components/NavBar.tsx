@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './static/css/nav.css';
 import homeIcon from './static/icons/home.png';
 import blazeIcon from './static/icons/blaze.png';
@@ -8,16 +8,44 @@ import profileIcon from './static/icons/profile.png';
 import searchIcon from './static/icons/search.png';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const NavBar: React.FC = () => {
     const navigate = useNavigate();
 
 
      const handleClick = () => {
-       // Redirect to Authc component
-        navigate('/authc');
+       // Redirect to the appropriate page based on login status
+    const isLoggedIn = checkLoggedInStatus();
+    if (isLoggedIn) {
+      navigate('/userprofile');
+    } else {
+      navigate('/authc');
+    }
      };
+
+     useEffect(() => {
+    // Check if the user is logged in
+    const isLoggedIn = checkLoggedInStatus();
+    console.log('User logged in:', isLoggedIn);
+  }, []);
+      const checkLoggedInStatus = () => {
+    // Replace this logic with your actual authentication check
+    // For example, you can check if the JWT token exists in the cookie
+    const jwtToken = getJwtToken();
+    return !!jwtToken;
+  };
+
+  const getJwtToken = () => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith('jwt=')) {
+        return cookie.substring(4);
+      }
+    }
+    return null;
+  };
+
+
   return (
     <div>
       <div className="nav-bar">
