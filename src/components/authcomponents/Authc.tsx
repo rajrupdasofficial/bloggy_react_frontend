@@ -6,7 +6,8 @@ import { apiUrl } from '../globals/globalEnv';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-//import Cookies from 'js-cookie';
+import Cookies from 'universal-cookie';
+ 
 
 
 const Authc: React.FC = () => {
@@ -38,13 +39,31 @@ const Authc: React.FC = () => {
         const response = await axios.post(url, formData);
         // Handle successful response
         toast.success("User Registration successful");
-        toast.error("");
         setSuccessMessage("User registration successful");
-        setErrorMessage("");
         setIsRegistered(true);
 
         // Set jwt auth token as a cookie
-        document.cookie = `jwtToken=${response.data.token}; path=/; SameSite=None; Secure`;
+        const cookies = new Cookies();
+        cookies.set('_intercom_secure_token', response.data.token, { path: '/', sameSite: 'strict', secure: true});
+        // now set the jwt token in localstorage so that it will not go lost after a reftesh
+        localStorage.setItem('_intercom_secure_token',response.data.token);
+
+
+        let nullcookie = new Cookies();
+        let voidcookie = nullcookie.get('_intercom_secure_token');
+
+        if(!voidcookie){
+         let intercom = localStorage.getItem('_intercom_secure_token');
+
+          if(intercom){
+            const cookies = new Cookies();
+
+            cookies.set('_intercom_secure_token', intercom,{path:'/', sameSite:'strict', secure:true});
+          }
+
+        }
+
+
       } else {
         console.error("apiUrl is not defined");
       }
@@ -74,23 +93,30 @@ const Authc: React.FC = () => {
 
   const handleSignInFormSubmit = async (signInFormData: SignInFormData, event: React.FormEvent) => {
     event.preventDefault();
-    console.log("clicked");
     try {
       if (apiUrl) {
         const url = `${apiUrl}/users/login`;
         const response = await axios.post(url, signInFormData);
-        console.log(response);
+        const  cookies = new Cookies();
         // Set jwt auth token as a cookie
-        Cookies.set('jwtToken', response.data.token, { path: '/', sameSite: 'None', secure: true });
-
-        // Set jwt auth token as a cookie
-        //document.cookie = `jwtToken=${response.data.token}; path=/; SameSite=None; Secure`;
-
-        toast.success("User Sign-in successful");
-        toast.error("");
+       cookies.set('_intercom_secure_token', response.data.token, { path: '/', sameSite: 'strict', secure: true});
+       cookies.set('_intercom_secure_csrf', response.data._intercom_csrf_token,{path:'/',sameSite:'strict',secure: true})
+       cookies.set('_intercom_session_id',response.data._intercom_session_id,{path:'/', sameSite:'strict',secure: true})
 
         // Use the navigate function to navigate to the home page or another page
         navigate('/'); // Replace '/' with the desired URL
+         localStorage.setItem('_intercom_secure_',response.data.token);
+
+         const intercomCookie = cookies.get('_intercom_secure_token');
+
+        if(!intercomCookie){
+         const intercomatlocal = localStorage.getItem('_intercom_secure_token');
+
+          if(intercomatlocal){
+            cookies.set('_intercom_secure_token', intercomatlocal,{path:'/', sameSite:'none', secure:true});
+          }
+
+        }
       } else {
         console.error("apiUrl is not defined");
       }
