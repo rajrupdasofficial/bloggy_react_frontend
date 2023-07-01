@@ -22,7 +22,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: install
       run: |
-        npm install
-        npm run build
+        yarn cache clean
+        yarn add universal-cookie
+        yarn insall
+    - name: build
+      run: |
+        yarn build
+
