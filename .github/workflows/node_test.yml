@@ -26,7 +26,7 @@ jobs:
       run: |
         yarn cache clean
         yarn add universal-cookie
-        yarn insall
+        yarn install
     - name: build
       run: |
         yarn build

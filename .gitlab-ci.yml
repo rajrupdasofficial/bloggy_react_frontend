@@ -1,0 +1,18 @@
+stages:
+    - development
+    - install
+
+check the development:
+    image: node
+    stage: development
+    script:
+    - npm ci
+
+check the install using using yarn:
+    image: node
+    stage: install
+    script:
+        - yarn cache clean
+        - yarn add universal-cookie
+        - yarn install
+        - yarn build
