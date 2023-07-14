@@ -11,30 +11,24 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const [logoutStatus, setLogoutStatus] = useState(false);
 
-    useEffect(() => {
-    if (logoutStatus) {
-      handleLogout();
-    }
-  }, [logoutStatus]);
-
   const handleLogout = async () => {
     try {
-      if (apiUrl){
-      const url = `${apiUrl}/users/logout`;
-      const response = await axios.post(url);
+      if (apiUrl) {
+        const url = `${apiUrl}/users/logout`;
+        const response = await axios.post(url);
 
-      toast.success(response.data.msg);
+        toast.success(response.data.msg);
 
-      const cookies = new Cookies();
-      cookies.remove('_intercom_secure_token');
-      cookies.remove('_intercom_secure_csrf');
-      cookies.remove('_intercom_session_id');
+        const cookies = new Cookies();
+        cookies.remove('_intercom_secure_token');
+        cookies.remove('_intercom_secure_csrf');
+        cookies.remove('_intercom_session_id');
 
-      navigate('/');
-    }else{
-      toast.error("Something went wrong at backend");
-    }
-    }catch (error) {
+        navigate('/');
+      } else {
+        toast.error("Something went wrong at backend");
+      }
+    } catch (error) {
       toast.error("Something went wrong at the backend");
     }
   };
@@ -42,6 +36,12 @@ const ProfilePage: React.FC = () => {
   const handleClick = () => {
     setLogoutStatus(true);
   };
+
+  useEffect(() => {
+    if (logoutStatus) {
+      handleLogout();
+    }
+  }, [logoutStatus]);
 
 
     return (

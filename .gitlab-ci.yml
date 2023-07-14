@@ -1,6 +1,7 @@
 stages:
     - development
     - install
+    - deploy
 
 check the development:
     image: node
@@ -16,3 +17,17 @@ check the install using using yarn:
         - yarn add universal-cookie
         - yarn install
         - yarn build
+    artifacts:
+        paths:
+            - build
+
+deploy_to_s3:
+    stage: deploy
+    image:
+        name: amazon/aws-cli:2.13.1
+        entrypoint: [""]
+    script:
+        - aws --version
+
+
+

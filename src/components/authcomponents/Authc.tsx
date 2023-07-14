@@ -16,7 +16,7 @@ const Authc: React.FC = () => {
     username: "",
     email: "",
     password: "",
-    password2: "",
+    password_confirm: "",
   });
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -35,18 +35,19 @@ const Authc: React.FC = () => {
     event.preventDefault();
     try {
       if (apiUrl) {
-        const url = `${apiUrl}/users/signup`;
+        const url = `${apiUrl}users/signup`;
         const response = await axios.post(url, formData);
         // Handle successful response
+        console.log(response)
         toast.success("User Registration successful");
         setSuccessMessage("User registration successful");
         setIsRegistered(true);
 
         // Set jwt auth token as a cookie
         const cookies = new Cookies();
-        cookies.set('_intercom_secure_token', response.data.token, { path: '/', sameSite: 'strict', secure: true});
+        cookies.set('_intercom_secure_token', response.data.intercom, { path: '/', sameSite: 'strict', secure: true});
         // now set the jwt token in localstorage so that it will not go lost after a reftesh
-        localStorage.setItem('_intercom_secure_token',response.data.token);
+        localStorage.setItem('_intercom_secure_token',response.data.intercom);
 
 
         let nullcookie = new Cookies();
@@ -95,11 +96,20 @@ const Authc: React.FC = () => {
     event.preventDefault();
     try {
       if (apiUrl) {
-        const url = `${apiUrl}/users/login`;
-        const response = await axios.post(url, signInFormData);
+        const url = `${apiUrl}users/login`;
+        const response = await axios.post(url, signInFormData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+
+        }
+
+        );
+
+        console.log(response)
         const  cookies = new Cookies();
         // Set jwt auth token as a cookie
-       cookies.set('_intercom_secure_token', response.data.token, { path: '/', sameSite: 'strict', secure: true});
+       cookies.set('_intercom_secure_token', response.data.intercom, { path: '/', sameSite: 'strict', secure: true});
        cookies.set('_intercom_secure_csrf', response.data._intercom_csrf_token,{path:'/',sameSite:'strict',secure: true})
        cookies.set('_intercom_session_id',response.data._intercom_session_id,{path:'/', sameSite:'strict',secure: true})
 
@@ -187,9 +197,9 @@ const Authc: React.FC = () => {
               />
               <Components.Input
                 type="password"
-                name="password2"
+                name="password_confirm"
                 placeholder="Confirm Password"
-                value={formData.password2}
+                value={formData.password_confirm}
                 onChange={handleInputChange}
               />
               <Components.Button type="submit">Sign Up</Components.Button>
