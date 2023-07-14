@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Components from './Components';
 import './authstyle.css';
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { apiUrl } from '../globals/globalEnv';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

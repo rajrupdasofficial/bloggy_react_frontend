@@ -33,7 +33,7 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleClick = () => {
+  const _handleClick = () => {
     setLogoutStatus(true);
   };
 

@@ -67,7 +67,7 @@ const Home: React.FC = () => {
     data.forEach((item) => {
       const imageUrl = `${apiUrl}/${item.video_thumbnail}`;
       list.push(
-        <a href="" key={item.id} onClick={() => redirectToDetailsPage(item.vid)} >
+        <a href="javascript:void(0)" key={item.id} onClick={() => redirectToDetailsPage(item.vid)} >
           <div className="cardh">
             <img className="card-img-toph" src={imageUrl} alt="card image" />
             <div className="card-bodyh">
