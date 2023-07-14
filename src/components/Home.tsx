@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./static/css/home.css";
 import NavBar from "./NavBar";
-import { apiUrl, apiKey, apiParms } from './globals/globalEnv'; // Assuming you have an 'apiKey' variable in your globalEnv file
+import { apiUrl } from './globals/globalEnv'; // Assuming you have an 'apiKey' variable in your globalEnv file
 import { useNavigate } from 'react-router-dom';
 
 interface DataItem {
@@ -17,14 +17,13 @@ const Home: React.FC = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const navigate = useNavigate();
   const apk = process.env.REACT_APP_API_KEY;
-  const apl = process.env.REACT_APP_PARAMS;
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (apiUrl ) {
           const response = await axios.get<DataItem[]>(apiUrl, {
             headers: {
-                Authorization: `${apl} ${apk}`,
+                Authorization: `$${apk}`,
             }
 
           });
@@ -38,7 +37,7 @@ const Home: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [apk]);
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
@@ -68,7 +67,7 @@ const Home: React.FC = () => {
     data.forEach((item) => {
       const imageUrl = `${apiUrl}/${item.video_thumbnail}`;
       list.push(
-        <a href="#" key={item.id} onClick={() => redirectToDetailsPage(item.vid)} >
+        <a href="" key={item.id} onClick={() => redirectToDetailsPage(item.vid)} >
           <div className="cardh">
             <img className="card-img-toph" src={imageUrl} alt="card image" />
             <div className="card-bodyh">
