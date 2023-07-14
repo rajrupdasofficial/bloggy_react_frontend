@@ -3,15 +3,15 @@ import NavBar from '../NavBar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { apiUrl } from '../globals/globalEnv';
 import Cookies from 'universal-cookie';
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const [logoutStatus, setLogoutStatus] = useState(false);
-
-  const handleLogout = async () => {
+  
+  const handleLogout = useCallback(async () => {
     try {
       if (apiUrl) {
         const url = `${apiUrl}/users/logout`;
@@ -31,17 +31,18 @@ const ProfilePage: React.FC = () => {
     } catch (error) {
       toast.error("Something went wrong at the backend");
     }
-  };
+  }, [navigate]);
 
-  const _handleClick = () => {
+  const handleClick = useCallback(() => {
     setLogoutStatus(true);
-  };
+  }, []);
 
   useEffect(() => {
     if (logoutStatus) {
       handleLogout();
     }
   }, [logoutStatus, handleLogout]);
+
 
 
     return (
@@ -59,7 +60,7 @@ const ProfilePage: React.FC = () => {
       <div className="profile-footer">
         {/* Activity feed or additional profile sections */}
         <h1> This is footer section </h1>
-        <button className="logout-button" type="submit" onClick={handleLogout}>Logout</button>
+        <button className="logout-button" type="submit" onClick={handleClick}>Logout</button>
       </div>
     </div>
     </div>
