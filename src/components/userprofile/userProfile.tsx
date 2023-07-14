@@ -41,7 +41,7 @@ const ProfilePage: React.FC = () => {
     if (logoutStatus) {
       handleLogout();
     }
-  }, [logoutStatus]);
+  }, [logoutStatus, handleLogout]);
 
 
     return (
