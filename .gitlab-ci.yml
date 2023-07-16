@@ -3,13 +3,13 @@ stages:
     - install
     - deploy
 
-check the development:
+.check the development:
     image: node
     stage: development
     script:
     - npm ci
 
-check the install using using yarn:
+.check the install using using yarn:
     image: node
     stage: install
     script:
@@ -28,6 +28,8 @@ deploy_to_s3:
         entrypoint: [""]
     script:
         - aws --version
+        - echo "Hello s3" > test.txt
+        - aws s3 cp test.txt s3://$AWS_S3_BUCKET/test.txt
 
 
 
