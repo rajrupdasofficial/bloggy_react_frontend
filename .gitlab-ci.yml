@@ -23,15 +23,13 @@ check the install using using yarn:
 
 deploy_to_s3:
     stage: deploy
+    rules :
+        - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     image:
         name: amazon/aws-cli:2.13.1
         entrypoint: [""]
     script:
-        - aws --version
-        - echo "Hello s3" > test.txt
         - aws s3 sync build s3://$AWS_S3_BUCKET --delete
-    only:
-        - master
 
 
 
