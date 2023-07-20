@@ -34,4 +34,4 @@ post_deploy_checks:
         - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     image: curlimages/curl
     script:
-        - curl $APP_BASE_URL | grep "REact App"
+        - curl $APP_BASE_URL | grep "React App"
