@@ -1,12 +1,10 @@
 stages:
-    - development
     - install
+    - deploy
+    - postdeploy
 
-check the development:
-    image: node
-    stage: development
-    script:
-    - npm ci
+variables:
+    APP_BASE_URL: http://bloggyreact.s3-website-us-west-2.amazonaws.com
 
 check the install using using yarn:
     image: node
@@ -16,3 +14,24 @@ check the install using using yarn:
         - yarn add universal-cookie
         - yarn install
         - yarn build
+    artifacts:
+        paths:
+            - build
+
+deploy_to_s3:
+    stage: deploy
+    rules :
+        - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    image:
+        name: amazon/aws-cli:2.13.1
+        entrypoint: [""]
+    script:
+        - aws s3 sync build s3://$AWS_S3_BUCKET --delete
+
+post_deploy_checks:
+    stage: postdeploy
+    rules :
+        - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    image: curlimages/curl
+    script:
+        - curl $APP_BASE_URL | grep "React App"

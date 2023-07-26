@@ -45,7 +45,7 @@ const NavBar: React.FC = () => {
     <div>
       <div className="nav-bar">
         <div className="nav-items">
-          <a href="#">Website Title</a>
+          <a href="/">Website Title</a>
         </div>
         <div className="nav-items">
           <input type="text" placeholder="Search" />
@@ -53,12 +53,12 @@ const NavBar: React.FC = () => {
       </div>
        <div className="nav-bar-bottom">
       <div className="navbare">
-        <a href="#" onClick={homeClick} ><img src={ homeIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
-        <a href="#"><img src={ blazeIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
-        <a href="#"><img src={ plusIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
-        <a href="#"><img src={ searchIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
-        <a href="#"><img src={ bellIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
-        <a href="#" onClick={handleClick}><img src={ profileIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/" onClick={homeClick} ><img src={ homeIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/blaze"><img src={ blazeIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/plus"><img src={ plusIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/search"><img src={ searchIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/bell"><img src={ bellIcon  } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
+        <a href="/authc" onClick={handleClick}><img src={ profileIcon } alt="blaze" style={{ color: 'white', background: 'white', height: '22px', borderRadius: '10px' }} /></a>
     </div>
 
     </div>
